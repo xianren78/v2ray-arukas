@@ -1,0 +1,229 @@
+{
+	"log": {
+		"loglevel": "warning",
+		"access": "/etc/v2ray/access.log",
+    "error": "/etc/v2ray/error.log"
+	},
+	"inbounds": [{
+			"listen": "127.0.0.1",
+			"port": 10010,
+			"protocol": "dokodemo-door",
+			"settings": {
+				"address": "127.0.0.1"
+			},
+			"tag": "api"
+		},
+		{
+			"tag": "kcp",
+			"port": 9999,
+			"protocol": "vmess",
+			"settings": {
+				"clients": [{
+						"id": "uuid",
+						"level": 0,
+						"alterId": 64,
+						"email": "admin@test.com"
+					},
+					{
+						"id": "uu6id",
+						"level": 0,
+						"alterId": 64,
+						"email": "test@test.com"
+					},
+					{
+						"id": "uu1id",
+						"level": 0,
+						"alterId": 64,
+						"email": "mp@test.com"
+					},
+					{
+						"id": "uu2id",
+						"level": 0,
+						"alterId": 64,
+						"email": "wj@test.com"
+					},
+					{
+						"id": "uu3id",
+						"level": 0,
+						"alterId": 64,
+						"email": "wsl@test.com"
+					},
+					{
+						"id": "uu4id",
+						"level": 0,
+						"alterId": 64,
+						"email": "dxb@test.com"
+					},
+					{
+						"id": "uu5id",
+						"level": 0,
+						"alterId": 64,
+						"email": "ycz@test.com"
+					}
+				]
+			},
+			"streamSettings": {
+				"network": "kcp",
+				"kcpSettings": {
+					"mtu": 1350,
+					"tti": 100,
+					"uplinkCapacity": 10,
+					"downlinkCapacity": 50,
+					"congestion": false,
+					"readBufferSize": 2,
+					"writeBufferSize": 2,
+					"header": {
+						"type": "wechat-video"
+					}
+				}
+			}
+		},
+		{
+			"port": 10001,
+			"listen": "127.0.0.1",
+			"protocol": "dokodemo-door",
+			"tag": "wsdoko",
+			"settings": {
+				"address": "v1.mux.cool",
+				"followRedirect": false,
+				"network": "tcp"
+			},
+			"streamSettings": {
+				"network": "ws",
+				"wsSettings": {
+					"path": "/shadow"
+				}
+			}
+		},
+		{
+			"port": 9015,
+			"protocol": "shadowsocks",
+			"settings": {
+				"method": "chacha20-ietf-poly1305",
+				"ota": false,
+				"password": "sspass",
+				"network": "tcp,udp"
+			},
+			"streamSettings": {
+				"network": "domainsocket"
+			}
+		},
+		{
+      "tag": "ws",
+			"port": 10000,
+			"listen": "127.0.0.1",
+			"protocol": "vmess",
+			"settings": {
+				"clients": [{
+						"id": "uuid",
+						"level": 0,
+						"alterId": 64,
+						"email": "admin@test.com"
+					},
+					{
+						"id": "uu6id",
+						"level": 0,
+						"alterId": 64,
+						"email": "test@test.com"
+					},
+					{
+						"id": "uu1id",
+						"level": 0,
+						"alterId": 64,
+						"email": "mp@test.com"
+					},
+					{
+						"id": "uu2id",
+						"level": 0,
+						"alterId": 64,
+						"email": "wj@test.com"
+					},
+					{
+						"id": "uu3id",
+						"level": 0,
+						"alterId": 64,
+						"email": "wsl@test.com"
+					},
+					{
+						"id": "uu4id",
+						"level": 0,
+						"alterId": 64,
+						"email": "dxb@test.com"
+					},
+					{
+						"id": "uu5id",
+						"level": 0,
+						"alterId": 64,
+						"email": "ycz@test.com"
+					}]
+			},
+			"streamSettings": {
+				"network": "ws",
+				"wsSettings": {
+					"path": "/ws"
+				}
+			}
+		}
+	],
+	"policy": {
+		"levels": {
+			"0": {
+				"statsUserUplink": true,
+				"statsUserDownlink": true
+			}
+		}
+	},
+	"stats": {},
+	"api": {
+		"services": [
+			"StatsService"
+		],
+		"tag": "api"
+	},
+	"outbounds": [{
+		"protocol": "freedom",
+		"settings": {},
+		"tag": "direct"
+	},
+		{
+			"protocol": "blackhole",
+			"settings": {},
+			"tag": "blocked"
+		},
+		{
+			"protocol": "freedom",
+			"tag": "ssmux",
+			"streamSettings": {
+				"network": "domainsocket"
+			}
+		}],
+  "transport": {
+		"dsSettings": {
+			"path": "/etc/v2ray/ss-loop.sock"
+		}
+	},
+	"routing": {
+		"rules": [{
+				"inboundTag": [
+					"api"
+				],
+				"outboundTag": "api",
+				"type": "field"
+			},
+			{
+				"type": "field",
+				"inboundTag": [
+					"wsdoko"
+				],
+				"outboundTag": "ssmux"
+			},
+			{
+				"type": "field",
+				"ip": [
+					"geoip:private"
+				],
+				"outboundTag": "blocked"
+			}
+		]
+	}
+}
