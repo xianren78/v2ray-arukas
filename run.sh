@@ -20,11 +20,11 @@ sed -i "s/uu5id/$UU5ID/g" /etc/v2ray/config.json
 sed -i "s/uu6id/$UU6ID/g" /etc/v2ray/config.json
 sed -i "s/sspass/$SSPASS/g" /etc/v2ray/config.json
 cd /tmp
-wget -O v2ray.zip http://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip
-unzip v2ray.zip "v2ray" -d /usr/bin/v2ray/
-unzip v2ray.zip "v2ctl" -d /usr/bin/v2ray/
-unzip v2ray.zip "geosite.dat" -d /usr/bin/v2ray/
-unzip v2ray.zip "geoip.dat" -d /usr/bin/v2ray/
+wget --no-check-certificate https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip
+unzip v2ray-linux-64.zip "v2ray" -d /usr/bin/v2ray/
+unzip v2ray-linux-64.zip "v2ctl" -d /usr/bin/v2ray/
+unzip v2ray-linux-64.zip "geosite.dat" -d /usr/bin/v2ray/
+unzip v2ray-linux-64.zip "geoip.dat" -d /usr/bin/v2ray/
 
 if [ ! -f "/usr/bin/v2ray/v2ray" ]; then
  unzip v2ray.zip "v2ray-v$VER-linux-64\v2ray" -d /usr/bin/v2ray/
@@ -32,7 +32,7 @@ if [ ! -f "/usr/bin/v2ray/v2ray" ]; then
  unzip v2ray.zip "v2ray-v$VER-linux-64\geosite.dat" -d /usr/bin/v2ray/
  unzip v2ray.zip "v2ray-v$VER-linux-64\geoip.dat" -d /usr/bin/v2ray/
 fi
-rm -rf /tmp/v2ray.zip
+rm -rf /tmp/v2ray-linux-64.zip
 cd /usr/bin/v2ray
 chmod +x v2ray v2ctl
 /usr/bin/v2ray/v2ray -config=/etc/v2ray/config.json >/dev/null  2>&1  &
