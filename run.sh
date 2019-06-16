@@ -42,4 +42,5 @@ sed -i '$i 0       12      *       *       *       cat /dev/null > /etc/caddy/ca
 crond
 echo "Start crond Success!"
 
-/usr/bin/v2ray/restart.sh
+cd /usr/bin/v2ray
+./restart.sh
