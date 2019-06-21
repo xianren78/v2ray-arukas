@@ -5,9 +5,9 @@ while [ 1 ] ; do
   then
   rm -rf /etc/v2ray/ss-loop*
      if [ ! -f "/usr/bin/v2ray/v2ray" ]; then
-      rm -rf /usr/bin/v2ray/*
+      rm -rf /usr/bin/v2ray/*.dat
+      rm -rf /usr/bin/v2ray/v2ctl
       wget -O /tmp/v2ray-linux-64.zip --no-check-certificate https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip
-      
       unzip /tmp/v2ray-linux-64.zip v2ray v2ctl geosite.dat geoip.dat -d /usr/bin/v2ray/
       chmod +x /usr/bin/v2ray/v2ray /usr/bin/v2ray/v2ctl
       rm -rf /tmp/v2ray-linux-64.zip
