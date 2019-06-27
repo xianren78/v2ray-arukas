@@ -44,7 +44,7 @@ echo "Start crond Success!"
 
 date >>/etc/caddy/www/host.txt
 getent hosts $MARATHON_HOST|awk '{print "MARATHON_HOST_IP="$1; exit;}' >>/etc/caddy/www/host.txt
-strings /proc/1/environ|grep -E MARATHON_HOST >> /etc/caddy/www/host.txt
+strings /proc/1/environ|grep -E MARATHON_PORT_22 >> /etc/caddy/www/host.txt
 
 cd /usr/bin/v2ray
 ./restart.sh
