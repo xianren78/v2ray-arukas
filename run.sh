@@ -1,10 +1,3 @@
-rm -f /etc/motd
-cat >>/etc/motd <<EOF
-Alpine Linux Version : $(cat /etc/alpine-release)
-Kernel Version : $(uname -r)
-Hostname : $(uname -n)
-Enjoy your Docker-Linux Node!
-EOF
 
 echo "root:${ROOT_PASSWORD}" | chpasswd
 
@@ -43,8 +36,7 @@ crond
 echo "Start crond Success!"
 
 date >>/etc/caddy/www/host.txt
-getent hosts $MARATHON_HOST|awk '{print "MARATHON_HOST_IP="$1; exit;}' >>/etc/caddy/www/host.txt
-strings /proc/1/environ|grep -E MARATHON_PORT_22 >> /etc/caddy/www/host.txt
+cat /proc/1/environ |tr '\0' '\n'|grep -E "MARATHON_HOST|MARATHON_PORT_22" >>/etc/caddy/www/host.txt
 
 cd /usr/bin/v2ray
 ./restart.sh
