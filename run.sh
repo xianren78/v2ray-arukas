@@ -29,14 +29,9 @@ wget --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/
 
 echo "Start caddy Success!"
 
-sed -i '$i 0       12      *       *       *       cat /dev/null > /etc/v2ray/access.log' /etc/crontabs/root
-sed -i '$i 0       12      *       *       *       cat /dev/null > /etc/caddy/caddy.log' /etc/crontabs/root
-
-crond
-echo "Start crond Success!"
-
 date >>/etc/caddy/www/host.txt
-cat /proc/1/environ |tr '\0' '\n'|grep -E "MARATHON_HOST|MARATHON_PORT_22" >>/etc/caddy/www/host.txt
+cat /proc/1/environ |tr '\0' '\n'|grep -E MARATHON_HOST >>/etc/caddy/www/host.txt
+cat /proc/1/environ |tr '\0' '\n'|grep -E MARATHON_PORT_22 >>/etc/caddy/www/host.txt
 
 cd /usr/bin/v2ray
 ./restart.sh
