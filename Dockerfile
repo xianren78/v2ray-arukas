@@ -2,7 +2,7 @@ FROM debian:stretch-slim
 
 ENV UUID=uuid VER=4.19.1 ROOT_PASSWORD=alpine SSPASS=sspass UU1ID=uuid1 UU2ID=uuid2 UU3ID=uuid3 UU4ID=uuid4 UU5ID=uuid5 UU6ID=uuid6
 
-RUN apt-get update && apt-get -y install --no-install-recommends wget ca-certificates openssh-server openssh-sftp-server unzip \
+RUN apt-get update && apt-get -y install --no-install-recommends wget ca-certificates openssh-server openssh-sftp-server unzip vim \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
  && ssh-keygen -A \
