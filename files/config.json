@@ -171,7 +171,11 @@
 				"statsUserUplink": true,
 				"statsUserDownlink": true
 			}
-		}
+		},
+    "system": {
+        "statsInboundUplink": true,
+        "statsInboundDownlink": true
+    }
 	},
 	"stats": {},
 	"api": {
